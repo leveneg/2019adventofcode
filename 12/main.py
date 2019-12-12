@@ -21,9 +21,7 @@ def step_dim(dims):
 
 
 def step(moons):
-    dims = []
-    for ax in range(3):
-        dims.append(step_dim([[p[ax], v[ax]] for p, v in moons]))
+    dims = [step_dim([[p[ax], v[ax]] for p, v in moons]) for ax in range(3)]
 
     return [list(zip(*v)) for v in zip(*dims)]
 
@@ -42,7 +40,7 @@ def main():
     pots, kins = [[sum(map(abs, m[i])) for m in moons] for i in range(2)]
     p1 = sum(p * k for p, k in zip(pots, kins))
 
-    loops = []
+    p2 = 1
     for ax in range(3):
         i = 1
         dims = [[p[ax], v[ax]] for p, v in moons]
@@ -51,11 +49,7 @@ def main():
         while step_dim(_d) != dims:
             i += 1
 
-        loops.append(i)
-
-    p2 = 1
-    for n in loops:
-        p2 = abs(p2 * n) // gcd(p2, n)
+        p2 = abs(p2 * i) // gcd(p2, i)
 
     print("p1: {}, p2: {}".format(p1, p2))
 

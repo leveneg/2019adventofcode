@@ -103,10 +103,10 @@ def main():
     hull = defaultdict(int, [(0 + 0j, 1)])
     hull = paint(prog, hull, 0 + 0j)
 
-    min_i, max_i = [int(d([p.real for p in hull.keys()])) for d in [min, max]]
-    min_j, max_j = [int(d([p.imag for p in hull.keys()])) for d in [min, max]]
-
     if not os.environ.get('SKIP_DRAWS'):
+        min_i, max_i = [int(d([p.real for p in hull.keys()])) for d in [min, max]]
+        min_j, max_j = [int(d([p.imag for p in hull.keys()])) for d in [min, max]]
+
         for j in range(max_j, min_j - 1, -1):
             for i in range(max_i, min_i - 1, -1):
                 sys.stdout.write('#' if hull[complex(i, j)] else ' ')
